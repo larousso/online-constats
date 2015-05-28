@@ -31,18 +31,21 @@ Démarrer les applications
 Lancer l'application d'api constat : 
 
 `cd api-constat-scala`
+
 `activator -Dhttp.port=9000 ~run`
 
 
 Lancer l'application d'admin : 
 
 `cd admin-constat-scala`
+
 `activator -Dhttp.port=9001 ~run`
 
 
 Lancer l'application d'appli mobile : 
 
 `cd constat-mobile-scala`
+
 `activator -Dhttp.port=9002 ~run`
 
 

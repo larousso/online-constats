@@ -8,17 +8,19 @@
         <thead>
             <tr>
                 <th>ConducteurA</th>
+                <th>Immatriculation</th>
                 <th>ConducteurB</th>
-                <th></th>
+                <th>Immatriculation</th>
                 <th>Description</th>
             </tr>
         </thead>
         <tbody>
             @for(constat <- constats) {
                 <tr>
-                    <td>@constat.conducteurA.nom</td>
-                    <td>@constat.conducteurB.nom</td>
-                    <td></td>
+                    <td>@constat.conducteurA.nom @constat.conducteurA.prenom</td>
+                    <td>@constat.conducteurA.immatriculation.immatriculation</td>
+                    <td>@constat.conducteurB.nom @constat.conducteurB.prenom</td>
+                    <td>@constat.conducteurB.immatriculation.immatriculation</td>
                     <td>@constat.description</td>
                 </tr>
             }
@@ -26,8 +28,8 @@
     </table>
     <script id="template" type="text/x-handlebars-template">
         <tr>
-            <td>{{conducteurA.nom}}</td>
-            <td>{{conducteurB.nom}}</td>
+            <td>{{conducteurA.nom}} {{conducteurA.prenom}}</td>
+            <td>{{conducteurB.nom}} {{conducteurB.prenom}}</td>
             <td></td>
             <td>{{description}}</td>
         </tr>

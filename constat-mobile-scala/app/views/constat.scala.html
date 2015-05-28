@@ -1,0 +1,21 @@
+@(message: String)
+
+@main("Constat") {
+
+    <header class="bar bar-nav">
+        <h1 class="title">Constat</h1>
+    </header>
+
+
+
+    <div class="content">
+        <div id="constat"></div>
+
+
+    </div>
+
+    <script src="@routes.Assets.at("js/build/constatService.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/build/toggle.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/build/conducteur.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/build/constat.js")" type="text/javascript"></script>
+}

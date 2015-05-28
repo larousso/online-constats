@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET        /                    controllers.Application.index
+
+GET     /constats                           controllers.Application.listConstat
+POST     /constats                           controllers.Application.newConstat
+
+OPTIONS        /*all                                controllers.Application.preflight(all: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET        /assets/*file        controllers.Assets.at(path="/public", file)

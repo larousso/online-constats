@@ -1,0 +1,22 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/ratchet.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/app.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        @*<script src="@routes.Assets.at("js/vendor/toggle.js")" type="text/javascript"></script>*@
+        <script src="@routes.Assets.at("js/vendor/jquery-2.1.4.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/vendor/ratchet.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/vendor/fingerblast.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/vendor/react-with-addons.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/vendor/ReactRouter.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        @content
+    </body>
+
+</html>

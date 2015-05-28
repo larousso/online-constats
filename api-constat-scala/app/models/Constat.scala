@@ -41,7 +41,7 @@ case class Constat(_id: Option[BSONObjectID], conducteurA: Conducteur, conducteu
       immat2 <- fImmat2
     } yield {
       val conducteurA = this.conducteurA.copy(immatriculation = immat1)
-      val conducteurB = this.conducteurA.copy(immatriculation = immat2)
+      val conducteurB = this.conducteurB.copy(immatriculation = immat2)
       this.copy(conducteurA = conducteurA, conducteurB = conducteurB)
     }
   }

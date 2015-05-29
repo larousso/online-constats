@@ -38,7 +38,7 @@ object Application extends Controller {
       rep.status match {
         case 200 =>
           val constats: List[Constat] = rep.json.as[List[Constat]]
-          Ok(views.html.index(constats))
+          Ok(views.html.index(constats.reverse))
         case _ =>
           Logger.error(s"Oups ${rep.statusText}")
           BadRequest("Oups")

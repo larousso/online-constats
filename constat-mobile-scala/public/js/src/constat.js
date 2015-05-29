@@ -2,6 +2,7 @@
 var Router = window.ReactRouter;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
+var Navigation = Router.Navigation;
 var Link = Router.Link;
 
 var ConstatModel = {
@@ -38,12 +39,34 @@ var ConducteurB = React.createClass({
 });
 
 var Description = React.createClass({
+    mixins: [Navigation], // Use the mixin
+    getInitialState() {
+        return {error:false}
+    },
     validate() {
+        var _this = this;
         ConstatModel.description = React.findDOMNode(this.refs.description).value;
-        ConstatService.save(ConstatModel);
-        return true;
+        ConstatService
+            .save(ConstatModel)
+            .done(rep => {
+                _this.setState({
+                    error: false
+                });
+                _this.transitionTo("/");
+            })
+            .fail(err => {
+                _this.setState({
+                    error: true
+                });
+            });
     },
     render() {
+        var err;
+        if(this.state.error) {
+            err = (
+                <span>Une erreur est survenue</span>
+            );
+        }
         return (
             <div>
                 <header className="bar bar-nav">
@@ -54,11 +77,13 @@ var Description = React.createClass({
                     <h1 className="title">Description</h1>
                 </header>
                 <div className="content">
+                    {err}
                     <form>
                         <label>Notes diverses</label>
                         <textarea rows="5" ref="description"></textarea>
                     </form>
-                    <Link to="/" className="btn btn-block btn btn-primary" onClick={this.validate}>Valider le constat</Link>
+                    <button className="btn btn-block btn btn-primary" onClick={this.validate}>Valider le constat</button>
+                    //<Link to="/" className="btn btn-block btn btn-primary" onClick={this.validate}>Valider le constat</Link>
                 </div>
             </div>
         );

@@ -3,6 +3,7 @@
 var Router = window.ReactRouter;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
+var Navigation = Router.Navigation;
 var Link = Router.Link;
 
 var ConstatModel = {};
@@ -44,12 +45,33 @@ var ConducteurB = React.createClass({
 var Description = React.createClass({
     displayName: "Description",
 
+    mixins: [Navigation], // Use the mixin
+    getInitialState: function getInitialState() {
+        return { error: false };
+    },
     validate: function validate() {
+        var _this = this;
         ConstatModel.description = React.findDOMNode(this.refs.description).value;
-        ConstatService.save(ConstatModel);
-        return true;
+        ConstatService.save(ConstatModel).done(function (rep) {
+            _this.setState({
+                error: false
+            });
+            _this.transitionTo("/");
+        }).fail(function (err) {
+            _this.setState({
+                error: true
+            });
+        });
     },
     render: function render() {
+        var err;
+        if (this.state.error) {
+            err = React.createElement(
+                "span",
+                null,
+                "Une erreur est survenue"
+            );
+        }
         return React.createElement(
             "div",
             null,
@@ -71,6 +93,7 @@ var Description = React.createClass({
             React.createElement(
                 "div",
                 { className: "content" },
+                err,
                 React.createElement(
                     "form",
                     null,
@@ -81,6 +104,12 @@ var Description = React.createClass({
                     ),
                     React.createElement("textarea", { rows: "5", ref: "description" })
                 ),
+                React.createElement(
+                    "button",
+                    { className: "btn btn-block btn btn-primary", onClick: this.validate },
+                    "Valider le constat"
+                ),
+                "//",
                 React.createElement(
                     Link,
                     { to: "/", className: "btn btn-block btn btn-primary", onClick: this.validate },

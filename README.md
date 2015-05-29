@@ -8,7 +8,8 @@ Applications de démo d'applications réactives avec :
  * kafka 
  * react js 
 
-Démarrer mongo db :
+
+__Démarrer mongo db :__
  
 page de download : https://www.mongodb.org/downloads
 
@@ -16,7 +17,8 @@ page de download : https://www.mongodb.org/downloads
 
 `bin/mongod`
 
-Démarrer kafka avec docker : 
+
+__Démarrer kafka avec docker :__ 
 
 `git clone https://github.com/wurstmeister/kafka-docker.git` 
 
@@ -24,7 +26,8 @@ Démarrer kafka avec docker :
  
 `docker-compose -f docker-compose-single-broker.yml up`
 
-Démarrer les applications 
+
+__Démarrer les applications__ 
 
 `git clone https://github.com/larousso/online-constats.git`
 
@@ -48,4 +51,8 @@ Lancer l'application d'appli mobile :
 
 `activator -Dhttp.port=9002 ~run`
 
+Lancer l'application le site web : 
 
+`cd constat-web-java`
+
+`activator -Dhttp.port=9003 ~run`

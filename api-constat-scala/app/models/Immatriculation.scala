@@ -32,7 +32,7 @@ object Immatriculation {
   implicit val formatImmatriculation = Json.format[Immatriculation]
 
   val mappingImmatriculation = mapping(
-    "immatriculation" -> text,
+    "immatriculation" -> nonEmptyText,
     "vehicule" -> optional(mappingVehicule)
   )(Immatriculation.apply)(Immatriculation.unapply)
 

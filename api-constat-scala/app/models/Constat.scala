@@ -21,8 +21,8 @@ object Conducteur {
   implicit val formatConducteur = Json.format[Conducteur]
 
   val conducteurMapping = mapping(
-    "nom" -> text,
-    "prenom" -> text,
+    "nom" -> nonEmptyText,
+    "prenom" -> nonEmptyText,
     "immatriculation" -> Immatriculation.mappingImmatriculation,
     "circonstances" -> Circonstances.circonstanceMapping
   )(Conducteur.apply)(Conducteur.unapply)

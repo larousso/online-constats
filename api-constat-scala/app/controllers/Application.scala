@@ -8,6 +8,7 @@ import akka.util.Timeout
 import com.softwaremill.react.kafka.ReactiveKafka
 import kafka.serializer.StringEncoder
 import models.Constat
+import play.api.Logger
 import play.api.http.HeaderNames
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
@@ -44,6 +45,7 @@ object Application extends Controller {
       },
       constat => {
 
+        Logger.debug(s"New Constat $constat")
 
         val resultSink = Sink.head[Constat]
         val kafkaSink = Sink.apply(kafka.publish("constats", "constats", new StringEncoder()))

@@ -1,0 +1,16 @@
+@(message: String)
+
+@main("Home", "home") {
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Création de constats en ligne</h1>
+            <p>
+                Ce site permet de créer des constats en ligne.
+            </p>
+            <p><a href="@controllers.routes.Application.getConstat()" class="btn btn-primary btn-lg" role="button">Créer un constat</a></p>
+        </div>
+    </div>
+
+
+}

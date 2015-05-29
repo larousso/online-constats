@@ -1,0 +1,73 @@
+@(form: play.data.Form[models.Constat])
+
+@import b3.vertical.fieldConstructor
+
+@main("Constat", "constat") {
+
+    @b3.form(routes.Application.createConstat()) {
+        <div class="container">
+                <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Conducteur A</h2>
+                    @b3.text(form("conducteurA.nom"), '_label -> "nom")
+                    @b3.text(form("conducteurA.prenom"), '_label -> "prenom")
+                    @b3.text(form("conducteurA.immatriculation.immatriculation"), '_label -> "Immatriculation")
+                </div>
+                <div class="col-md-4">
+                    <h2>Circonstances</h2>
+                    <table class="table">
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases2"))</td>
+                            <td>Quittait son stationnement</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases2"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases2"))</td>
+                            <td>Quittait son stationnement</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases2"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases4"))</td>
+                            <td>Sortait d’un parking, d’un lieu privé, d’un chemin de terre</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases4"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases8"))</td>
+                            <td>Heurtait l’arrière en roulant dans le même sens et sur une même file</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases8"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases10"))</td>
+                            <td>Changeait de file</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases10"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases14"))</td>
+                            <td>Reculait</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases14"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases15"))</td>
+                            <td>Empiétait sur une voie réservée à la circulation en sens inverse</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases15"))</td>
+                        </tr>
+                        <tr>
+                            <td>@b3.checkbox(form("conducteurA.circonstances.cases16"))</td>
+                            <td>N’avait pas observé le signal de sécurité</td>
+                            <td>@b3.checkbox(form("conducteurB.circonstances.cases16"))</td>
+                        </tr>
+                    </table>
+                    @b3.textarea(form("description"), '_label -> "nom")
+                </div>
+                <div class="col-md-4">
+                    <h2>Conducteur B</h2>
+                    @b3.text(form("conducteurB.nom"), '_label -> "nom")
+                    @b3.text(form("conducteurB.prenom"), '_label -> "prenom")
+                    @b3.text(form("conducteurB.immatriculation.immatriculation"), '_label -> "Immatriculation")
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Valider</button>
+            </div>
+        </div>
+    }
+}

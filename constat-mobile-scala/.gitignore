@@ -5,4 +5,5 @@ target
 /.classpath
 /.project
 /.settings
+/public/js/node_modules
 /RUNNING_PID

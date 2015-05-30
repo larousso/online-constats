@@ -1,19 +1,16 @@
 package controllers
 
-import akka.actor.ActorSystem
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.ActorFlowMaterializer
-import akka.stream.scaladsl.{Sink, Source}
 import akka.util.Timeout
 import com.softwaremill.react.kafka.ReactiveKafka
 import kafka.serializer.StringDecoder
 import models.Constat
-import org.reactivestreams.Publisher
+import org.reactivestreams.{Subscriber, Subscription}
 import play.api.Logger
 import play.api.Play.current
-import play.api.libs.EventSource
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.iteratee.Enumeratee
-import play.api.libs.streams.Streams
+import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WS
 import play.api.mvc._
 
@@ -47,18 +44,61 @@ object Application extends Controller {
   }
 
 
+  object WebSocketActor {
+    def props(out: ActorRef) = Props(classOf[WebSocketActor], out)
+  }
+
+  class WebSocketActor(out: ActorRef) extends Actor {
+
+    var subscriptionRef: Option[Subscription] = None
+
+    /**
+     * Démarrage de l'acteur
+     */
+    override def preStart(): Unit = {
+      Logger.debug(s"Starting websocket actor")
+
+      //On s'abonne au stream :
+      kafka
+       .consumeFromEnd("constats", "constats", new StringDecoder())
+       .subscribe(new Subscriber[String] {
+
+          override def onSubscribe(subscription: Subscription): Unit = {
+            subscriptionRef = Some(subscription)
+            Logger.debug(s"Request 1 message")
+            subscriptionRef.foreach(_.request(1))
+          }
+
+          override def onComplete(): Unit = {
+            Logger.debug(s"On complete")
+          }
+
+          override def onNext(t: String): Unit = {
+            Logger.debug(s"Getting 1 message $t")
+            out ! Json.parse(t)
+            subscriptionRef.foreach(_.request(1))
+          }
+
+         override def onError(throwable: Throwable): Unit = {
+           Logger.error(s"Error on kafka subscriber", throwable)
+         }
+     })
+    }
+
+    //Fermeture de la socket :
+    override def postStop() = {
+      subscriptionRef.foreach(_.cancel)
+    }
+
+    //Pas de messages entrant :
+    override def receive: Receive = {
+      case any => Logger.debug(s"Message ??? $any")
+    }
+  }
 
 
-  def stream = Action {
-
-    Logger.debug(s"stream")
-
-    val kafkaPub: Publisher[String] = kafka.consumeFromEnd("constats", "constats", new StringDecoder())
-
-    Ok.feed(
-        Streams.publisherToEnumerator(kafkaPub).map{any => Logger.debug(s"$any");any}
-          &> EventSource())
-      .as("text/event-stream")
+  def socket = WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
+    WebSocketActor.props(out)
   }
 
 }

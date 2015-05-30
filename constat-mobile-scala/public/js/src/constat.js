@@ -83,7 +83,6 @@ var Description = React.createClass({
                         <textarea rows="5" ref="description"></textarea>
                     </form>
                     <button className="btn btn-block btn btn-primary" onClick={this.validate}>Valider le constat</button>
-                    //<Link to="/" className="btn btn-block btn btn-primary" onClick={this.validate}>Valider le constat</Link>
                 </div>
             </div>
         );

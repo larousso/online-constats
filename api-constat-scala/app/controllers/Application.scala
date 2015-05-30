@@ -55,8 +55,9 @@ object Application extends Controller {
 
           val bcast = b.add(Broadcast[Constat](2))
 
-          Source.single(constat)
-            .mapAsync(1)(_.loadVehicule()) ~> bcast.in
+          Source
+            .single(constat)
+            .mapAsync(1)(const => const.loadVehicule()) ~> bcast.in
 
           bcast.out(0) ~> Flow[Constat].mapAsync(1)(c => c.save()) ~> headSink
           bcast.out(1) ~> Flow[Constat].map(c => Json.stringify(Json.toJson(c))) ~> kafkaSink

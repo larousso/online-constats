@@ -29,14 +29,16 @@
     <script id="template" type="text/x-handlebars-template">
         <tr>
             <td>{{conducteurA.nom}} {{conducteurA.prenom}}</td>
+            <td>{{conducteurA.immatriculation.immatriculation}}</td>
             <td>{{conducteurB.nom}} {{conducteurB.prenom}}</td>
-            <td></td>
+            <td>{{conducteurB.immatriculation.immatriculation}}</td>
             <td>{{description}}</td>
         </tr>
     </script>
     <script>
         $(document).ready(function (){
-            var source = new EventSource("/constats/stream");
+            var source = new WebSocket("ws://localhost:9001/constats/stream");
+
             var template = Handlebars.compile($("#template").html());
             source.onopen = function(event) {
                 console.log("open");
@@ -45,7 +47,6 @@
                 console.log(event.data);
                 var html = template(JSON.parse(event.data));
                 $(html).prependTo("#constatTable tbody").hide().fadeIn(1000);
-                //$('#constatTable body tr:first').prepend(html);
             };
         });
     </script>

@@ -108,12 +108,6 @@ var Description = React.createClass({
                     "button",
                     { className: "btn btn-block btn btn-primary", onClick: this.validate },
                     "Valider le constat"
-                ),
-                "//",
-                React.createElement(
-                    Link,
-                    { to: "/", className: "btn btn-block btn btn-primary", onClick: this.validate },
-                    "Valider le constat"
                 )
             )
         );
